@@ -2,7 +2,7 @@ plugins {
     java
     application
     // ELIMINADO: id("org.javamodularity.moduleplugin") -> Causa conflictos si no hay module-info.java
-    id("org.openjfx.javafxplugin") version "0.0.13"
+    id("org.openjfx.javafxplugin") version "0.1.0"
     // NOTA: Se eliminó temporalmente 'jlink' porque esa herramienta exige estrictamente
     // el uso de módulos (JPMS), lo cual rompe la compatibilidad con Firebase.
 }
