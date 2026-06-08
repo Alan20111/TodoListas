@@ -1,0 +1,81 @@
+name: Build executables
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'src/**'
+      - 'build.gradle.kts'
+      - '.github/workflows/build.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            label: windows
+          - os: macos-latest
+            label: macos
+          - os: ubuntu-latest
+            label: linux
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build distribution (installDist)
+        run: gradle installDist --no-daemon --stacktrace
+        shell: bash
+
+      - name: Package self-contained app (jpackage)
+        shell: bash
+        run: |
+          LIBDIR=$(find build/install -maxdepth 3 -type d -name lib | head -1)
+          echo "LIBDIR=$LIBDIR"; ls "$LIBDIR" | head
+          jpackage --type app-image --name TodoListas --input "$LIBDIR" \
+            --main-jar TodoList-1.0.0.jar --main-class dev.alan20111.todolist.Launcher \
+            --app-version 1.0.0 --dest jp
+
+      - name: Zip (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: Compress-Archive -Path jp/* -DestinationPath TodoListas-windows.zip
+
+      - name: Zip (macOS/Linux)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: cd jp && zip -r ../TodoListas-${{ matrix.label }}.zip .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ matrix.label }}
+          path: TodoListas-*.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Publish to Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Ejecutables (autocontenidos)
+          body: |
+            App de escritorio autocontenida generada por GitHub Actions (no requiere Java).
+            Nota: el inicio de sesion requiere credenciales de Firebase.
+          files: artifacts/**/*.zip
