@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="700.0" prefWidth="1000.0" spacing="15.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.alan20111.todolist.controller.TaskController">
+    <padding><Insets bottom="20.0" left="25.0" right="25.0" top="20.0" /></padding>
+
+    <HBox alignment="CENTER_LEFT">
+        <VBox>
+            <Label fx:id="lblWelcome" text="Mis Tareas"><font><Font name="System Bold" size="28.0" /></font></Label>
+            <Label text="Panel de control de actividades empresariales" textFill="#757575" />
+        </VBox>
+        <Region HBox.hgrow="ALWAYS" />
+        <Button onAction="#handleLogout" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 8 20;" text="Cerrar Sesión" />
+    </HBox>
+
+    <VBox spacing="10.0" style="-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-background-radius: 8; -fx-border-color: #e0e0e0; -fx-border-radius: 8;">
+        <HBox spacing="15.0" alignment="CENTER_LEFT">
+            <Button onAction="#openTaskFormForNew" minWidth="120.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="+ Nueva Tarea" />
+            <Button onAction="#openCategoryManager" minWidth="120.0" style="-fx-background-color: #757575; -fx-text-fill: white; -fx-cursor: hand;" text="Categorías ⚙" />
+            <Button onAction="#openStatistics" minWidth="140.0" style="-fx-background-color: #673AB7; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="Ver Estadísticas 📊" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Buscar:" style="-fx-font-weight: bold;" />
+            <TextField fx:id="txtSearch" prefWidth="180.0" promptText="Nombre o descripción..." />
+            <Label text="Filtrar Categoría:" style="-fx-font-weight: bold;" />
+            <ComboBox fx:id="cmbFilterCategory" prefWidth="130.0" promptText="Todas" />
+            <Button onAction="#clearFilters" style="-fx-cursor: hand;" text="Limpiar" />
+        </HBox>
+    </VBox>
+
+    <TableView fx:id="tableTasks" VBox.vgrow="ALWAYS" style="-fx-font-size: 14px;">
+        <columns>
+            <TableColumn fx:id="colName" prefWidth="180.0" text="Tarea" />
+            <TableColumn fx:id="colDescription" prefWidth="250.0" text="Descripción" />
+            <TableColumn fx:id="colCategories" prefWidth="150.0" text="Categorías" />
+            <TableColumn fx:id="colStatus" prefWidth="110.0" text="Estatus" />
+            <TableColumn fx:id="colDueDate" prefWidth="110.0" text="Vencimiento" />
+            <TableColumn fx:id="colCreationDate" prefWidth="110.0" text="Creada" />
+            <TableColumn fx:id="colActions" prefWidth="120.0" style="-fx-alignment: CENTER;" text="Acción" />
+        </columns>
+        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
+    </TableView>
+
+    <HBox alignment="CENTER_RIGHT" spacing="15.0">
+        <Label text="Generar Reporte de Actividades:" textFill="#616161"><font><Font name="System Italic" size="14.0" /></font></Label>
+        <ComboBox fx:id="cmbReportType" prefWidth="150.0" promptText="Formato" />
+        <Button onAction="#handleGenerateReport" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20; -fx-cursor: hand;" text="DESCARGAR" />
+    </HBox>
+</VBox>

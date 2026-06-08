@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefWidth="480.0" spacing="15.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.alan20111.todolist.controller.TaskFormController">
+    <padding><Insets bottom="30.0" left="30.0" right="30.0" top="30.0" /></padding>
+    <Label fx:id="lblTitle" text="Detalles de la Tarea"><font><Font name="System Bold" size="22.0" /></font></Label>
+    <Separator />
+    <VBox spacing="5.0"><Label text="Nombre de la Tarea:" style="-fx-font-weight: bold;" /><TextField fx:id="txtTaskName" /></VBox>
+    <VBox spacing="5.0"><Label text="Descripción:" style="-fx-font-weight: bold;" /><TextArea fx:id="txtDescription" prefHeight="100.0" wrapText="true" /></VBox>
+    <HBox spacing="15.0">
+        <VBox spacing="5.0" HBox.hgrow="ALWAYS"><Label text="Vencimiento:" style="-fx-font-weight: bold;" /><DatePicker fx:id="dpDueDate" maxWidth="Infinity" editable="false" /></VBox>
+        <VBox spacing="5.0" HBox.hgrow="ALWAYS"><Label text="Estatus:" style="-fx-font-weight: bold;" /><ComboBox fx:id="cmbStatus" maxWidth="Infinity" /></VBox>
+    </HBox>
+    <VBox spacing="5.0">
+        <Label text="Categorías:" style="-fx-font-weight: bold;" />
+        <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <MenuButton fx:id="menuCategories" maxWidth="Infinity" text="Seleccionar..." HBox.hgrow="ALWAYS" />
+            <Button onAction="#openCategoryManager" style="-fx-background-color: #757575; -fx-text-fill: white; -fx-cursor: hand;" text="⚙" />
+        </HBox>
+    </VBox>
+    <Region prefHeight="10.0" />
+    <HBox alignment="CENTER_RIGHT" spacing="10.0">
+        <Button fx:id="btnDelete" onAction="#handleDelete" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-cursor: hand;" text="Eliminar Tarea" visible="false" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button onAction="#handleCancel" style="-fx-cursor: hand;" text="Cancelar" />
+        <Button fx:id="btnSave" onAction="#handleSave" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="Guardar Cambios" />
+    </HBox>
+</VBox>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="700.0" prefWidth="900.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.alan20111.todolist.controller.StatisticsController">
+    <padding><Insets bottom="25.0" left="25.0" right="25.0" top="25.0" /></padding>
+    <HBox alignment="CENTER_LEFT" spacing="20.0">
+        <VBox>
+            <Label text="Análisis Estadístico"><font><Font name="System Bold" size="24.0" /></font></Label>
+            <Label text="Resumen de productividad y categorías" textFill="#757575" />
+        </VBox>
+        <Region HBox.hgrow="ALWAYS" />
+        <Label text="Filtrar por:" />
+        <ComboBox fx:id="cmbTimePeriod" prefWidth="150.0" promptText="Seleccionar periodo" />
+    </HBox>
+    <Separator />
+    <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+        <VBox alignment="TOP_CENTER" style="-fx-border-color: #eeeeee; -fx-border-radius: 10; -fx-padding: 10;" HBox.hgrow="ALWAYS">
+            <Label text="Estado de Tareas"><font><Font name="System Bold" size="16.0" /></font></Label>
+            <PieChart fx:id="pieChartStatus" legendSide="BOTTOM" VBox.vgrow="ALWAYS" />
+        </VBox>
+        <VBox alignment="TOP_CENTER" style="-fx-border-color: #eeeeee; -fx-border-radius: 10; -fx-padding: 10;" HBox.hgrow="ALWAYS">
+            <Label text="Tareas por Categoría"><font><Font name="System Bold" size="16.0" /></font></Label>
+            <BarChart fx:id="barChartCategories" legendVisible="false" VBox.vgrow="ALWAYS">
+                <xAxis><CategoryAxis label="Categoría" side="BOTTOM" /></xAxis>
+                <yAxis><NumberAxis label="Cantidad" side="LEFT" /></yAxis>
+            </BarChart>
+        </VBox>
+    </HBox>
+    <HBox alignment="CENTER_RIGHT">
+        <Button onAction="#closeWindow" prefWidth="100.0" style="-fx-background-color: #757575; -fx-text-fill: white;" text="Cerrar" />
+    </HBox>
+</VBox>
