@@ -32,6 +32,8 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
 
       - name: Build distribution (installDist)
         run: gradle installDist --no-daemon --stacktrace
